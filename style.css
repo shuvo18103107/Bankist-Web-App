@@ -26,6 +26,7 @@ html {
 }
 
 body {
+  width: fit-content !important;
   font-family: 'Poppins', sans-serif;
   font-weight: 300;
   color: #444;
