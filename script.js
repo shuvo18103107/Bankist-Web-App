@@ -79,3 +79,48 @@ document.querySelector('.btn--close--cookie').addEventListener('click', function
     //older version of doing this
     // message.parentElement.removeChild(message)
 })
+
+//styles , attributes and classes
+
+//styles
+message.style.backgroundColor = '#37383d';
+message.style.width = '120%';
+console.log(message.style.height);// nothing happen cg we not set height property manusally
+console.log(message.style.backgroundColor);//it will work we can read cg we set bc manusally
+console.log(getComputedStyle(message).display); //in that way we can read certain eleemnt css
+// read a certain eleemnt property as suggested by window and add value on it
+//use parseFloat or parsInt to get numbers only from a string
+message.style.height = parseFloat(getComputedStyle(message).height, 10) + 30 + 'px';
+
+//set custom property
+document.documentElement.style.setProperty('--color-primary', 'orangered')
+//attribute
+const logo = document.querySelector('.nav__logo');
+console.log(logo.alt);
+console.log(logo.src);
+logo.alt = "Beautiful Minimalist Logo";
+console.log(logo.alt);
+//cg its not a standard property
+console.log(logo.designer);//undefined
+//but we can also get access to manually set attribute 
+console.log(logo.getAttribute('designer'));
+logo.setAttribute('company', 'Bankist');
+console.log(logo.getAttribute('company'));
+//absolute att thats why we see link 
+console.log(logo.src);
+//relative att img/abc.png so we can access by getArribute
+console.log(logo.getAttribute('src'));
+
+const link = document.querySelector('.twitter-link');
+console.log(link.href);
+console.log(link.getAttribute('href'));
+
+//by using src and href we can use getattribute to access our own attribute whatever we wrote, but only using attribute we can access the absolute value like a link type
+
+//data attribute
+console.log(logo.dataset.versionNumber);
+//classes
+logo.classList.add('cf', 'jf')
+logo.classList.remove('cf', 'jf')
+logo.classList.toogle()
+logo.classList.contains()
