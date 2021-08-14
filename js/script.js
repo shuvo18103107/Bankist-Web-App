@@ -82,5 +82,38 @@ btnScrollTo.addEventListener('click', function () {
     section1.scrollIntoView({ behavior: 'smooth' });
 });
 
+//building a tab component
+const tabs = document.querySelectorAll('.operations__tab')
+console.log(tabs);
+const tabContainer = document.querySelector('.operations__tab-container')
 
+const tabContents = document.querySelectorAll('.operations__content');
+console.log(tabContents);
+//doing this is a bad practice suppose if i have 200 tabs then i create 200 call back function copies and  its slow down the page
+//so better use event delegation
+
+// tabs.forEach(function (el) {
+//     el.addEventListener('click', function (e) {
+//         console.log(el);
+//     })
+// })
+//add eventlistner to common parent
+tabContainer.addEventListener('click', function (e) {
+    //stop default behavior cg its follow same action as like child element so prevent it
+    e.preventDefault();
+    // console.log(e.target);
+    //matching strategy 
+    const clicked = e.target.closest('.operations__tab');//targeted element e span ace so span ke click korleow parent element dorai dici
+    console.log(clicked);
+    //guard class - if no click means null the immediately stop the function
+    if (!clicked) return;
+    //Active Tab
+    tabs.forEach(t => t.classList.remove('operations__tab--active'))
+    clicked.classList.add('operations__tab--active');
+
+    //Activate Content Area
+    tabContents.forEach(cont => cont.classList.remove('operations__content--active'))
+    document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active')
+
+})
 
