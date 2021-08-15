@@ -149,3 +149,69 @@ const handelHover = function (e) {
 //passing "argument" to handler function using bind
 nav.addEventListener('mouseover', handelHover.bind(0.5)) // function reference er sathe event taow jai so event recieve korte hobe
 nav.addEventListener('mouseout', handelHover.bind(1))
+//sticky navigation
+//this is not a good approach using window.scroll cg in older device it may create prb 
+// const initialCord = section1.getBoundingClientRect();
+// console.log(initialCord);
+// window.addEventListener('scroll', function (e) {
+//   //get the current position of the window 
+//   console.log(window.scrollY);
+//   if (window.scrollY > initialCord.top) {
+//     nav.classList.add('sticky')
+//   }
+//   else {
+//     nav.classList.remove('sticky')
+//   }
+// })
+
+//better approch - sticky navigation using intersection observer API
+//it allows our code to basically observe changes
+//practical Example
+// const obsCallback = function (entries) {
+//   //this function need 2 argument
+//   //entries is a array of threshold entries
+//   //we will call each time that a observe element/target element intersecting the root element at the thrashhold we define
+//   //when our target element intersect the viewport (null) in trashhold 10% then thos function will call no matter we scrolling up or down
+//   entries.forEach(el => console.log(el))
+// }
+// const obsOption = {
+//   root: null,//null deowar mane viewport ta nibe//root is the element that target is intersecting //using null cg then our target eleemnt can intersect the entire viewport
+
+//   //*section 1 er 10% asle viewport e callback function er entries trigger hobe
+//   //specify diff threshold
+//   threshold: [0.2] //0% mane target element viewport er ekdom bire thakle , 1 mane 100% er mane target element completly viewport e thakle 
+// }
+// const observer = new IntersectionObserver(obsCallback, obsOption);
+//by using this observer basically observe a target using a method called observe
+// observer.observe(section1);
+//we want to stick the navigation after the header eleemnt
+const header = document.querySelector('.header');
+//get the navbar height 
+const navHeight = nav.getBoundingClientRect().height;
+console.log(navHeight);
+const obsCallback = function (entries) {
+  //getting the first element from the entries
+  //entries return a array length is 1 and inside this array 1st position we get the property intersectionratio and isintersecting 
+
+  const [entry] = entries;//access the property
+  console.log(entry);
+  //logic
+  if (!entry.isIntersecting) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+
+}
+const obsOption = {
+  root: null, //cg we are interested in entire viewport
+  //first time obscallbackfunction call hoi cg it interacts with viewport as we set root :null
+  threshold: 0, //we want trigger the callback when header is completly out from the viewport
+  //*threshold er datar upor based kore calllback function call dei entries,  condition manle call dei r condition theke kom hoile  r ekbar call dei, condition theke besi hoile prb nai tai call o dei na 
+  //*10% dile target element 10% er vitor thakle callback trigger korbe r tokhn oi element viewport e thakel intersectionRation true hoi noile false
+  //implementing the sticky navigation before the target section start
+  // rootMargin:90px //90px outside from our target element in this case header 90px expand korbe normally finish place theke like marginbottom 
+  //custom vabe target element er size komai ana 
+  rootMargin: `-${navHeight}px`, //threshold 0 jodio deowa kintu customly chai target section 0 mane viewport theke ber completly ber hoye callback func triggger na hoye age theke margin niye target section ses koruk r function trigger hok
+  //*rootMargin mane viewport margin target element mane header viewport theke -90px margin nibe 
+}
+
+const headerObserver = new IntersectionObserver(obsCallback, obsOption);
+headerObserver.observe(header);
