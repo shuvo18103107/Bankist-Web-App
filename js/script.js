@@ -1,7 +1,7 @@
 'use strict';
 
 ///////////////////////////////////////
-// Modal window
+
 
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
@@ -14,6 +14,7 @@ const tabs = document.querySelectorAll('.operations__tab');
 const tabContainer = document.querySelector('.operations__tab-container');
 const tabContents = document.querySelectorAll('.operations__content');
 
+//*----------------------------Modal window----------------------------
 const openModal = function (e) {
   //page is jump when open modal
   e.preventDefault();
@@ -37,7 +38,7 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-//navigation
+//*------------------------------------navigation---------------------------------
 //event delegation-- implementing page navigation
 
 //old way
@@ -149,7 +150,7 @@ const handelHover = function (e) {
 //passing "argument" to handler function using bind
 nav.addEventListener('mouseover', handelHover.bind(0.5)) // function reference er sathe event taow jai so event recieve korte hobe
 nav.addEventListener('mouseout', handelHover.bind(1))
-//sticky navigation
+//*--------------------sticky navigation---------------------------
 //this is not a good approach using window.scroll cg in older device it may create prb 
 // const initialCord = section1.getBoundingClientRect();
 // console.log(initialCord);
@@ -216,7 +217,7 @@ const obsOption = {
 const headerObserver = new IntersectionObserver(obsCallback, obsOption);
 headerObserver.observe(header);
 
-//reveal element on scroll without using any libary, just uning intersectionObserverAPI
+//*------------------------reveal element on scroll without using any libary, just uning intersectionObserverAPI---------
 const allSection = document.querySelectorAll('.section');
 const sectionCallBack = function (entries, observer) {
   const [entry] = entries;
@@ -241,9 +242,9 @@ allSection.forEach(function (section) {
 
 })
 
-//lazy loading images using intersectionObserver API
+//*---------------------------lazy loading images using intersectionObserver API-------------------
 //select the images which has data-src attribute
-const imgTargets = document.querySelectorAll('img[data-src]') //as specify attribute no need to put dot(.)
+const imgTargets = document.querySelectorAll('img[data-src]')
 console.log(imgTargets);
 const loadImg = function (entries, observer) {
   const [entry] = entries;
@@ -271,3 +272,48 @@ imgTargets.forEach(function (img) {
   imgOvserver.observe(img);
 
 })
+
+//*----------------------------Building a slider component----------------------------------- 
+
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+
+const maxSlide = slides.length;
+const btnLeft = document.querySelector('.slider__btn--left')
+const btnRight = document.querySelector('.slider__btn--right')
+
+//next slide 
+const goToSlide = function (slide) {
+  slides.forEach(function (e, i) {
+    e.style.transform = `translateX(${100 * (i - slide)}%)`
+    //order : -100, 0 ,100 ,200
+
+  })
+}
+
+//initial setup all slider side by side 
+goToSlide(0)
+
+//order : -100, 0 ,100 ,200
+const nextSlide = function () {
+  if (currentSlide === maxSlide - 1) {
+    currentSlide = 0;
+  }
+  else {
+    currentSlide++;
+  }
+  goToSlide(currentSlide)
+}
+const prevSlide = function () {
+  if (currentSlide === 0) {
+    currentSlide = maxSlide - 1;
+  }
+  else {
+    currentSlide--;
+
+  }
+  goToSlide(currentSlide)
+
+}
+btnRight.addEventListener('click', nextSlide)
+btnLeft.addEventListener('click', prevSlide)
