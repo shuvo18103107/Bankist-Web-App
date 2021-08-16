@@ -2,7 +2,6 @@
 
 ///////////////////////////////////////
 
-
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
@@ -13,7 +12,15 @@ const nav = document.querySelector('.nav');
 const tabs = document.querySelectorAll('.operations__tab');
 const tabContainer = document.querySelector('.operations__tab-container');
 const tabContents = document.querySelectorAll('.operations__content');
+const header = document.querySelector('.header');
+const allSection = document.querySelectorAll('.section');
 
+const slides = document.querySelectorAll('.slide');
+const dotContainer = document.querySelector('.dots');
+const maxSlide = slides.length;
+const btnLeft = document.querySelector('.slider__btn--left');
+const btnRight = document.querySelector('.slider__btn--right');
+let currentSlide = 0;
 //*----------------------------Modal window----------------------------
 const openModal = function (e) {
   //page is jump when open modal
@@ -32,6 +39,7 @@ const closeModal = function () {
 btnsOpenModal.forEach(v => v.addEventListener('click', openModal));
 btnCloseModal.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
+//keyboard event
 document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
     closeModal();
@@ -124,7 +132,7 @@ const handelHover = function (e) {
   // console.log(e); //event mouseover or mouseout
   if (e.target.classList.contains('nav__link')) {
     const link = e.target;
-    const siblings = link.closest('.nav').querySelectorAll('.nav__link')
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link');
     console.log(siblings);
     const logo = link.closest('.nav').querySelector('img');
 
@@ -133,11 +141,9 @@ const handelHover = function (e) {
         el.style.opacity = this;
       }
       logo.style.opacity = this;
-    })
-
+    });
   }
-
-}
+};
 // nav.addEventListener('mouseover', function (e) {
 //   handelHover(e, 0.5)
 // })
@@ -148,14 +154,14 @@ const handelHover = function (e) {
 // })
 //better way to do this using bind(this specify) sometimes this specify object sometimes only value
 //passing "argument" to handler function using bind
-nav.addEventListener('mouseover', handelHover.bind(0.5)) // function reference er sathe event taow jai so event recieve korte hobe
-nav.addEventListener('mouseout', handelHover.bind(1))
+nav.addEventListener('mouseover', handelHover.bind(0.5)); // function reference er sathe event taow jai so event recieve korte hobe
+nav.addEventListener('mouseout', handelHover.bind(1));
 //*--------------------sticky navigation---------------------------
-//this is not a good approach using window.scroll cg in older device it may create prb 
+//this is not a good approach using window.scroll cg in older device it may create prb
 // const initialCord = section1.getBoundingClientRect();
 // console.log(initialCord);
 // window.addEventListener('scroll', function (e) {
-//   //get the current position of the window 
+//   //get the current position of the window
 //   console.log(window.scrollY);
 //   if (window.scrollY > initialCord.top) {
 //     nav.classList.add('sticky')
@@ -180,71 +186,68 @@ nav.addEventListener('mouseout', handelHover.bind(1))
 
 //   //*section 1 er 10% asle viewport e callback function er entries trigger hobe
 //   //specify diff threshold
-//   threshold: [0.2] //0% mane target element viewport er ekdom bire thakle , 1 mane 100% er mane target element completly viewport e thakle 
+//   threshold: [0.2] //0% mane target element viewport er ekdom bire thakle , 1 mane 100% er mane target element completly viewport e thakle
 // }
 // const observer = new IntersectionObserver(obsCallback, obsOption);
 //by using this observer basically observe a target using a method called observe
 // observer.observe(section1);
 //we want to stick the navigation after the header eleemnt
-const header = document.querySelector('.header');
-//get the navbar height 
+
+//get the navbar height
 const navHeight = nav.getBoundingClientRect().height;
-console.log(navHeight);
+// console.log(navHeight);
+//stick the nav after the header area passed
 const obsCallback = function (entries) {
   //getting the first element from the entries
-  //entries return a array length is 1 and inside this array 1st position we get the property intersectionratio and isintersecting 
+  //entries return a array length is 1 and inside this array 1st position we get the property intersectionratio and isintersecting
 
-  const [entry] = entries;//access the property
+  const [entry] = entries; //access the property
   // console.log(entry);
   //logic
   if (!entry.isIntersecting) nav.classList.add('sticky');
   else nav.classList.remove('sticky');
-
-}
+};
 const obsOption = {
   root: null, //cg we are interested in entire viewport
   //first time obscallbackfunction call hoi cg it interacts with viewport as we set root :null
   threshold: 0, //we want trigger the callback when header is completly out from the viewport
-  //*threshold er datar upor based kore calllback function call dei entries,  condition manle call dei r condition theke kom hoile  r ekbar call dei, condition theke besi hoile prb nai tai call o dei na 
+  //*threshold er datar upor based kore calllback function call dei entries,  condition manle call dei r condition theke kom hoile  r ekbar call dei, condition theke besi hoile prb nai tai call o dei na
   //*10% dile target element 10% er vitor thakle callback trigger korbe r tokhn oi element viewport e thakel intersectionRation true hoi noile false
   //implementing the sticky navigation before the target section start
-  // rootMargin:90px //90px outside from our target element in this case header 90px expand korbe normally finish place theke like marginbottom 
-  //custom vabe target element er size komai ana 
+  // rootMargin:90px //90px outside from our target element in this case header 90px expand korbe normally finish place theke like marginbottom
+  //custom vabe target element er size komai ana
   rootMargin: `-${navHeight}px`, //threshold 0 jodio deowa kintu customly chai target section 0 mane viewport theke ber completly ber hoye callback func triggger na hoye age theke margin niye target section ses koruk r function trigger hok
-  //*rootMargin mane viewport margin target element mane header viewport theke -90px margin nibe 
-}
+  //*rootMargin mane viewport margin target element mane header viewport theke -90px margin nibe
+};
 
 const headerObserver = new IntersectionObserver(obsCallback, obsOption);
 headerObserver.observe(header);
 
 //*------------------------reveal element on scroll without using any libary, just uning intersectionObserverAPI---------
-const allSection = document.querySelectorAll('.section');
 const sectionCallBack = function (entries, observer) {
   const [entry] = entries;
   // console.log(entry);
   //now by deafult first tile call back function trigger thats why first section cannot work so if a ceratin section isintersecting true then only remove this class
   if (!entry.isIntersecting) return; //guard class
-  entry.target.classList.remove('section--hidden')
+  entry.target.classList.remove('section--hidden');
   //first time target observe kore trigger korar por barbar page scroll korel callback function kaj korbe so we nned to stop this ,only observe for the first time
-  //it is better for performance
-  observer.unobserve(entry.target)
-
-}
+  //it is better for performance //stop multiple trigger
+  observer.unobserve(entry.target);
+};
 const secOption = {
   root: null,
-  threshold: .15 //section is reveal when it 50% visible in viewport
-}
+  threshold: 0.15, //section is reveal when it 50% visible in viewport
+};
 
-const sectionObserver = new IntersectionObserver(sectionCallBack, secOption)
+const sectionObserver = new IntersectionObserver(sectionCallBack, secOption);
 allSection.forEach(function (section) {
   sectionObserver.observe(section);
-  section.classList.add('section--hidden')
-
-})
+  section.classList.add('section--hidden');
+});
 
 //*---------------------------lazy loading images using intersectionObserver API-------------------
 //select the images which has data-src attribute
-const imgTargets = document.querySelectorAll('img[data-src]')
+const imgTargets = document.querySelectorAll('img[data-src]');
 console.log(imgTargets);
 const loadImg = function (entries, observer) {
   const [entry] = entries;
@@ -256,64 +259,97 @@ const loadImg = function (entries, observer) {
   //replcing src att happen behind the scene and once it finisth the replace the image it emit the loadEvent
   //only remove the lazy-img blur filter when it is completly done
   entry.target.addEventListener('load', function (e) {
-    entry.target.classList.remove('lazy-img')
-
-  })
-  observer.unobserve(entry.target)
-}
+    entry.target.classList.remove('lazy-img');
+  });
+  observer.unobserve(entry.target);
+};
 const imgOvserver = new IntersectionObserver(loadImg, {
   root: null,
   threshold: 0,
   //dont let the user know that we are using lazy loading , triiger the csll sbck before 200px
-  rootMargin: '200px'
+  rootMargin: '200px',
   //isintersecting tai main ekahne
 });
 imgTargets.forEach(function (img) {
   imgOvserver.observe(img);
+});
 
-})
+//*----------------------------Building a slider component-----------------------------------
+//create dot button
+const slider = function () {
+  const createDots = function () {
+    slides.forEach(function (_, i) {
+      dotContainer.insertAdjacentHTML(
+        'beforeend',
+        `<button class ="dots__dot" data-slide ="${i}"></button>`
+      );
+    });
+  };
 
-//*----------------------------Building a slider component----------------------------------- 
+  //slide changing functionality
+  const goToSlide = function (slide) {
+    slides.forEach(function (e, i) {
+      e.style.transform = `translateX(${100 * (i - slide)}%)`;
+      //order : -100, 0 ,100 ,200
+    });
+  };
 
-let currentSlide = 0;
-const slides = document.querySelectorAll('.slide');
+  const activateDot = function (currSlide) {
+    document.querySelectorAll('.dots__dot').forEach(dot => {
+      dot.classList.remove('dots__dot--active');
+    });
+    document
+      .querySelector(`.dots__dot[data-slide="${currSlide}"]`)
+      .classList.add('dots__dot--active');
+  };
+  //initial setup all slider side by side
+  const init = function () {
+    goToSlide(0);
+    createDots();
+    activateDot(0);
+  };
 
-const maxSlide = slides.length;
-const btnLeft = document.querySelector('.slider__btn--left')
-const btnRight = document.querySelector('.slider__btn--right')
+  //order : -100, 0 ,100 ,200
+  const nextSlide = function () {
+    if (currentSlide === maxSlide - 1) {
+      currentSlide = 0;
+    } else {
+      currentSlide++;
+    }
+    goToSlide(currentSlide);
+    activateDot(currentSlide);
+  };
+  const prevSlide = function () {
+    if (currentSlide === 0) {
+      currentSlide = maxSlide - 1;
+    } else {
+      currentSlide--;
+    }
+    goToSlide(currentSlide);
+    activateDot(currentSlide);
+  };
+  init();
+  //event handlers
+  btnRight.addEventListener('click', nextSlide);
+  btnLeft.addEventListener('click', prevSlide);
 
-//next slide 
-const goToSlide = function (slide) {
-  slides.forEach(function (e, i) {
-    e.style.transform = `translateX(${100 * (i - slide)}%)`
-    //order : -100, 0 ,100 ,200
+  //slider functionality using keyboard
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') prevSlide();
+    e.key === 'ArrowRight' && nextSlide(); //short circuiting
+  });
 
-  })
-}
-
-//initial setup all slider side by side 
-goToSlide(0)
-
-//order : -100, 0 ,100 ,200
-const nextSlide = function () {
-  if (currentSlide === maxSlide - 1) {
-    currentSlide = 0;
-  }
-  else {
-    currentSlide++;
-  }
-  goToSlide(currentSlide)
-}
-const prevSlide = function () {
-  if (currentSlide === 0) {
-    currentSlide = maxSlide - 1;
-  }
-  else {
-    currentSlide--;
-
-  }
-  goToSlide(currentSlide)
-
-}
-btnRight.addEventListener('click', nextSlide)
-btnLeft.addEventListener('click', prevSlide)
+  //dot button functionality
+  dotContainer.addEventListener('click', function (e) {
+    if (e.target.classList.contains('dots__dot')) {
+      // const slide = e.target.dataset.slide;
+      //using destructing way
+      // console.log(e.target.dataset); //objectMap
+      const { slide } = e.target.dataset;
+      // console.log(slide);
+      goToSlide(slide);
+      activateDot(slide);
+    }
+  });
+};
+slider();
