@@ -220,7 +220,7 @@ headerObserver.observe(header);
 const allSection = document.querySelectorAll('.section');
 const sectionCallBack = function (entries, observer) {
   const [entry] = entries;
-  console.log(entry);
+  // console.log(entry);
   //now by deafult first tile call back function trigger thats why first section cannot work so if a ceratin section isintersecting true then only remove this class
   if (!entry.isIntersecting) return; //guard class
   entry.target.classList.remove('section--hidden')
@@ -238,5 +238,36 @@ const sectionObserver = new IntersectionObserver(sectionCallBack, secOption)
 allSection.forEach(function (section) {
   sectionObserver.observe(section);
   section.classList.add('section--hidden')
+
+})
+
+//lazy loading images using intersectionObserver API
+//select the images which has data-src attribute
+const imgTargets = document.querySelectorAll('img[data-src]') //as specify attribute no need to put dot(.)
+console.log(imgTargets);
+const loadImg = function (entries, observer) {
+  const [entry] = entries;
+  console.log(entry);
+  if (!entry.isIntersecting) return; //guard class
+  //Replace src with data-src
+  entry.target.src = entry.target.dataset.src;
+  //loading take times better using loadEvent
+  //replcing src att happen behind the scene and once it finisth the replace the image it emit the loadEvent
+  //only remove the lazy-img blur filter when it is completly done
+  entry.target.addEventListener('load', function (e) {
+    entry.target.classList.remove('lazy-img')
+
+  })
+  observer.unobserve(entry.target)
+}
+const imgOvserver = new IntersectionObserver(loadImg, {
+  root: null,
+  threshold: 0,
+  //dont let the user know that we are using lazy loading , triiger the csll sbck before 200px
+  rootMargin: '200px'
+  //isintersecting tai main ekahne
+});
+imgTargets.forEach(function (img) {
+  imgOvserver.observe(img);
 
 })
