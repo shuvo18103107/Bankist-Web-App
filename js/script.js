@@ -353,3 +353,27 @@ const slider = function () {
   });
 };
 slider();
+
+//*-----------lifecycle of DOm events -----------------
+//when all the html js file loaded then this event fired 
+//DOMContentLoaded is like ready function in jquery but if the script is place last on html file then dont need this event 
+document.addEventListener('DOMContentLoaded', function (e) {
+  console.log('Html parsed and DOM tree built!', e);
+});
+
+//when html js image and all necessary thing loaded then this event trigger
+
+window.addEventListener('load', function (e) {
+  console.log('page fully loaded', e);
+})
+
+//this event trigger before a user leave the page like close the window 
+//we use this event to ask the user if they are 100% sure to leave the page 
+
+// window.addEventListener('beforeunload', function (e) {
+//   e.preventDefault();
+//   console.log(e);
+//   //in order to set a leaving confirmation we need to return a empty string
+
+//   e.returnValue = '';
+// });
