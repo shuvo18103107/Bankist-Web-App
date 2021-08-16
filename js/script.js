@@ -194,7 +194,7 @@ const obsCallback = function (entries) {
   //entries return a array length is 1 and inside this array 1st position we get the property intersectionratio and isintersecting 
 
   const [entry] = entries;//access the property
-  console.log(entry);
+  // console.log(entry);
   //logic
   if (!entry.isIntersecting) nav.classList.add('sticky');
   else nav.classList.remove('sticky');
@@ -215,3 +215,28 @@ const obsOption = {
 
 const headerObserver = new IntersectionObserver(obsCallback, obsOption);
 headerObserver.observe(header);
+
+//reveal element on scroll without using any libary, just uning intersectionObserverAPI
+const allSection = document.querySelectorAll('.section');
+const sectionCallBack = function (entries, observer) {
+  const [entry] = entries;
+  console.log(entry);
+  //now by deafult first tile call back function trigger thats why first section cannot work so if a ceratin section isintersecting true then only remove this class
+  if (!entry.isIntersecting) return; //guard class
+  entry.target.classList.remove('section--hidden')
+  //first time target observe kore trigger korar por barbar page scroll korel callback function kaj korbe so we nned to stop this ,only observe for the first time
+  //it is better for performance
+  observer.unobserve(entry.target)
+
+}
+const secOption = {
+  root: null,
+  threshold: .15 //section is reveal when it 50% visible in viewport
+}
+
+const sectionObserver = new IntersectionObserver(sectionCallBack, secOption)
+allSection.forEach(function (section) {
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden')
+
+})
