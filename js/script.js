@@ -82,6 +82,9 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
   //matching strategy , mane common parent er event er response bad dibo
   if (e.target.classList.contains('nav__link')) {
     const id = e.target.getAttribute('href');
+    if (!id) {
+      location.href = 'app.html'
+    }
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
     console.log(id);
   }

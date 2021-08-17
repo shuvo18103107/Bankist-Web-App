@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="shortcut icon" type="image/png" href="./img/icon.png" />
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="./css/app.css" />
+    <title>Minimalist Online Bank</title>
+</head>
+
+<body>
+    <!-- TOP NAVIGATION -->
+
+    <div class="container col-12 mainWrap m-0 p-0">
+        <!-- starter header -->
+
+
+
+        <div class="row col-12 m-0 p-0 nav">
+
+            <div class="col-lg-4 col-md-2 col-sm-2 col-xs-2 text-end p-0 m-0">
+                <img src="img/logo.png" alt="Logo" class="logo" />
+
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-10 col-xs-10  ">
+                <p class="welcome mb-5">Log in to get started</p>
+
+            </div>
+
+
+
+            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 p-0 m-0 col-12">
+                <form class="login container m-0 p-0">
+                    <input type="text" placeholder="user" class="login__input login__input--user" />
+                    <!-- In practice, use type="password" -->
+                    <input type="text" placeholder="PIN" maxlength="4" class="login__input login__input--pin" />
+                    <button class="login__btn">&rarr;</button>
+                </form>
+            </div>
+
+
+        </div>
+        <!-- starter header end -->
+        <main class="app">
+            <!-- balence section start-->
+            <div class="row col-12 m-0 p-0 mt-5 mb-5">
+                <div class="col-6 text-center">
+                    <p class="balance__label">Current balance</p>
+                    <p class="balance__date">
+                        As of <span class="date">05/03/2037</span>
+                    </p>
+                </div>
+                <div class="col-6 text-center balenceVal">
+                    <p class="balance__value">0000৳</p>
+
+                </div>
+
+            </div>
+            <!-- balence section end -->
+            <!-- movement section start -->
+
+            <div class="container col-12">
+                <div class="row col-12 m-0 p-0">
+                    <div class="col-12 col-lg-8  movementDiv p-0 m-0">
+                        <div class="movements">
+                            <div class="movements__row">
+                                <div class="movements__type movements__type--deposit">2 deposit</div>
+                                <div class="movements__date">3 days ago</div>
+                                <div class="movements__value">4 000€</div>
+                            </div>
+                            <div class="movements__row">
+                                <div class="movements__type movements__type--withdrawal">
+                                    1 withdrawal
+                                </div>
+                                <div class="movements__date">24/01/2037</div>
+                                <div class="movements__value">-378€</div>
+                            </div>
+                        </div>
+                        <div class="summary">
+                            <p class="summary__label">In</p>
+                            <p class="summary__value summary__value--in">0000৳</p>
+                            <p class="summary__label">Out</p>
+                            <p class="summary__value summary__value--out">0000৳</p>
+                            <p class="summary__label">Interest</p>
+                            <p class="summary__value summary__value--interest">0000৳</p>
+                            <button class="btn--sort">&downarrow; SORT</button>
+                        </div>
+
+
+                    </div>
+                    <div class="col-12 col-lg-4 operationDiv ">
+
+
+                        <!-- OPERATION: TRANSFERS -->
+                        <div class="operation operation--transfer mb-4">
+                            <h2>Transfer money</h2>
+                            <form class="form form--transfer">
+                                <input type="text" class="form__input form__input--to" />
+                                <input type="number" class="form__input form__input--amount" />
+                                <button class="form__btn form__btn--transfer">&rarr;</button>
+                                <label class="form__label">Transfer to</label>
+                                <label class="form__label">Amount</label>
+                            </form>
+                        </div>
+
+                        <!-- OPERATION: LOAN -->
+                        <div class="operation operation--loan mb-4">
+                            <h2>Request loan</h2>
+                            <form class="form form--loan">
+                                <input type="number" class="form__input form__input--loan-amount" />
+                                <button class="form__btn form__btn--loan">&rarr;</button>
+                                <label class="form__label form__label--loan">Amount</label>
+                            </form>
+                        </div>
+
+                        <!-- OPERATION: CLOSE -->
+                        <div class="operation operation--close">
+                            <h2>Close account</h2>
+                            <form class="form form--close">
+                                <input type="text" class="form__input form__input--user" />
+                                <input type="password" maxlength="6" class="form__input form__input--pin" />
+                                <button class="form__btn form__btn--close">&rarr;</button>
+                                <label class="form__label">Confirm user</label>
+                                <label class="form__label">Confirm PIN</label>
+                            </form>
+                        </div>
+
+                        <!-- LOGOUT TIMER -->
+                        <p class="logout-timer">
+                            You will be logged out in <span class="timer">05:00</span>
+                        </p>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+        <footer class="footer hidden">
+            <div class="footer-text">© Copyright by Mohammad Ali Shuvo</div>
+            <button class="btn-logout">Logout <i class="fas fa-sign-out-alt" aria-hidden="true"></i></button>
+        </footer>
+        <!-- movements section start -->
+    </div>
+
+
+
+    <!-- <footer>
+      &copy; by Jonas Schmedtmann. Don't claim as your own :)
+    </footer> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.rawgit.com/mckamey/countdownjs/master/countdown.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+    <script src="./js/tata.js"></script>
+    <script src="./js/app.js"></script>
+    <!-- <script src="coding challenge.js"></script> -->
+    <!-- <script src="coding challenge 2.js"></script> -->
+    <!-- <script src="arrayMethod.js"></script> -->
+    <!-- <script src="finalcodingChallenge.js"></script> -->
+</body>
+
+</html>

@@ -146,8 +146,8 @@ img {
   margin-left: 4rem;
 }
 
-.nav__link:link,
-.nav__link:visited {
+.nav__link {
+  cursor: pointer;
   font-size: 1.7rem;
   font-weight: 400;
   color: inherit;
@@ -156,8 +156,7 @@ img {
   transition: all 0.3s;
 }
 
-.nav__link--btn:link,
-.nav__link--btn:visited {
+.nav__link--btn {
   padding: 0.8rem 2.5rem;
   border-radius: 3rem;
   background-color: var(--color-primary);
@@ -673,7 +672,7 @@ h4 {
   font-size: 1.5rem;
   font-weight: 400;
 }
-/* responsive */
+
 .scroll-to-top-btn {
   background: var(--color-primary);
   border: none;
@@ -702,8 +701,9 @@ h4 {
   opacity: 1;
   transform: translateY(0);
 }
+/* responsive */
 
-@media (max-width: 600px) {
+/*@media (max-width: 600px) {
   .header {
     padding: 0 2rem;
     min-height: 100vh;
@@ -783,7 +783,7 @@ h4 {
   }
 
   /* FEATURES */
-  .features {
+/* .features {
     display: block;
     margin: 3rem;
   }
@@ -801,13 +801,13 @@ h4 {
     /* display: flex;
     align-items: center;
     justify-content: center; */
-    background-color: var(--color-primary-opacity);
-    /* height: 5.5rem;
+/* background-color: var(--color-primary-opacity); */
+/* height: 5.5rem;
     width: 5.5rem;
     border-radius: 50%; */
-    margin-bottom: 1rem;
-  }
-
+/* margin-bottom: 1rem;
+  } */
+/* 
   .features__icon svg {
     height: 2.5rem;
     width: 2.5rem;
@@ -821,10 +821,10 @@ h4 {
 
   .features__text {
     text-align: justify;
-  }
+  } */
 
-  /* GENERAL ELEMENTS */
-  .section {
+/* GENERAL ELEMENTS */
+/* .section {
     padding: 0;
   }
 
@@ -839,26 +839,26 @@ h4 {
 
   .section__header {
     font-size: 2.5rem;
-  }
+  } */
 
-  /* OPERATIONS */
+/* OPERATIONS */
 
-  .btn {
+/* .btn {
     display: block;
     font-size: 2rem;
     font-weight: 500;
     padding: 10px;
     border-radius: 2rem;
-  }
+  } */
 
-  .operations {
-    /* margin: 2rem auto 0 auto; */
+/* .operations {
+
     margin: 0 auto;
     border-radius: 2rem;
     padding: 2.5rem;
-  }
+  } */
 
-  .operations__tab-container {
+/* .operations__tab-container {
     display: block;
     width: 100%;
     text-align: center;
@@ -917,11 +917,11 @@ h4 {
 
   .operations__content p {
     grid-column: 2;
-  }
+  } */
 
-  /* NAVIGATION */
+/* NAVIGATION */
 
-  .nav__logo {
+/* .nav__logo {
     height: 5rem;
     transition: all 0.3s;
   }
@@ -938,10 +938,10 @@ h4 {
 
   .nav__links {
     display: none;
-  }
+  } */
 
-  /* nav and stickly class at the same time */
-  .nav.sticky {
+/* nav and stickly class at the same time */
+/* .nav.sticky {
     position: static;
   }
 
@@ -958,39 +958,38 @@ h4 {
   .nav__link--btn:hover,
   .nav__link--btn:active {
     display: none;
-  }
+  } */
 
-  /* SLIDER */
-  .slider {
+/* SLIDER */
+/* .slider {
     max-width: 100rem;
     min-height: 64rem;
     margin: 0 auto;
     background: #fff;
     border-radius: 2rem;
     position: relative;
-    /* IN THE END */
+
     overflow: hidden;
     width: 90%;
-  }
+  } */
 
-  .slide {
+/* .slide {
     position: absolute;
     top: 0;
     max-width: 100rem;
     min-height: 61rem;
     padding: 2rem 1rem;
-    /* THIS creates the animation!
-    transition: transform 1s; */
+  
   }
 
   .slide > img {
-    /* Only for images that have different size than slide */
+ 
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
+  } */
 
-  .slider__btn {
+/* .slider__btn {
     display: none;
   }
 
@@ -1010,8 +1009,7 @@ h4 {
     cursor: pointer;
     transition: all 0.5s;
 
-    /* Only necessary when overlying images */
-    /* box-shadow: 0 0.6rem 1.5rem rgba(0, 0, 0, 0.7); */
+   
   }
 
   .dots__dot:last-child {
@@ -1019,12 +1017,12 @@ h4 {
   }
 
   .dots__dot--active {
-    /* background-color: #fff; */
+    
     background-color: #777;
     opacity: 1;
   }
 
-  /* TESTIMONIALS */
+
   .testimonial {
     width: 100%;
     min-height: 20rem;
@@ -1078,7 +1076,7 @@ h4 {
   .section__title--testimonials {
     margin-bottom: 4rem;
   }
-  /* FOOTER */
+ 
 
   .footer {
     padding: 3rem;
@@ -1113,7 +1111,7 @@ h4 {
     font-size: 1.2rem;
   }
 
-  /* MODAL WINDOW */
+
   .modal {
     width: 95%;
     max-width: 40rem;
@@ -1234,3 +1232,4 @@ h4 {
     gap: 0.5rem;
   }
 }
+  */
