@@ -20,6 +20,9 @@ const dotContainer = document.querySelector('.dots');
 const maxSlide = slides.length;
 const btnLeft = document.querySelector('.slider__btn--left');
 const btnRight = document.querySelector('.slider__btn--right');
+const target = document.querySelector('.footer')
+const scrollToTopBtn = document.querySelector('.scroll-to-top-btn')
+const rootElement = document.documentElement
 let currentSlide = 0;
 //*----------------------------Modal window----------------------------
 const openModal = function (e) {
@@ -353,6 +356,35 @@ const slider = function () {
   });
 };
 slider();
+// Scroll to top implementation
+
+function scrollToTopCallback(entries, observer) {
+
+  console.log(entries);
+  const [entry] = entries;
+  console.log(entry);
+
+  if (entry.isIntersecting) {
+    // Show button
+    scrollToTopBtn.classList.add('show-btn')
+  } else {
+    // Hide button
+    scrollToTopBtn.classList.remove('show-btn')
+  }
+
+}
+
+function scrollToTop() {
+  //scrollTo can set option 
+  rootElement.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  })
+}
+scrollToTopBtn.addEventListener('click', scrollToTop)
+
+const observer = new IntersectionObserver(scrollToTopCallback)
+observer.observe(target)
 
 //*-----------lifecycle of DOm events -----------------
 //when all the html js file loaded then this event fired 
